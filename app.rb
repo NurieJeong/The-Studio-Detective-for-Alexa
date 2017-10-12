@@ -36,7 +36,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("MoveThePlace") do
-    slots = request.intent.slots("The Kitchen")
+    slots = request.intent.slots("Kitchen")
     message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can talk with him or do something else."
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
@@ -45,7 +45,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
 
   on_intent("MoveThePlace") do
-    slots = request.intent.slots("The Studio")
+    slots = request.intent.slots("Studio")
     message = "At the entrance of the studio, you found another note."
     media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
     message = "There are two people, Meric and Kenz are talking to each other. You can talk with them or do something else."
