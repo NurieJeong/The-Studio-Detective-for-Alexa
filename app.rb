@@ -36,57 +36,35 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("MoveThePlace") do
-    slots = request.intent.slots
-    message = "I'm a bot that'll let you ask things about Daragh without bothering him."
+    slots = request.intent.slots("The Kitchen")
+    message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can talk with him or do something else."
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
-  end
-
-  on_intent("GetWhyIs") do
-    slots = request.intent.slots
-    message = "He made me for this class. To show you how to make simple bots"
-    response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
-  end
-
-  on_intent("GetWhereIs") do
-    slots = request.intent.slots
-    message = "Daragh's in class right now. Standing right in front of you. I'm floating on a server in the cloud. "
-    response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
+    logger.info 'MoveThePlace processed'
   end
 
 
-  on_intent("GetWhenIs") do
-    slots = request.intent.slots
-    message = "It's today. And today is my birthday."
+  on_intent("MoveThePlace") do
+    slots = request.intent.slots("The Studio")
+    message = "At the entrance of the studio, you found another note."
+    media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
+    message = "There are two people, Meric and Kenz are talking to each other. You can talk with them or do something else."
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
+    logger.info 'MoveThePlace processed'
   end
 
 
-  on_intent("GetRandom") do
-
-    message = ["Daragh is from Dublin", "Daragh moved to the US in 2011", "Daragh lived in Phoenix Arizona for two years", "Daragh will never skydive again", "Daragh has lots of pocketsquares"].sample
+  on_intent("MoveThePlace") do
+    slots = request.intent.slots("The Classroom")
+    message = "When you went inside the classroom, you found that your lunch bag was dropped on the floor. You grabbed it and see inside, but there was only a chocolate bar wrap folded.
+Alas, you couldn’t save your chocolate bar, but you still might be able to save your sandwich…?"
+    message = "You saw the message from Daragh’s TA in the white board."
+    media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
+    logger.info 'MoveThePlace processed'
   end
-
-  on_intent("AMAZON.HelpIntent") do
-
-    message = "I can help you find out things about Daragh. Ask me random things"
-    response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
-
-  end
-
-
 
 end
 
