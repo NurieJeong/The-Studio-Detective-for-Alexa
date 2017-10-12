@@ -24,15 +24,18 @@ enable :sessions
 
 class CustomHandler < AlexaSkillsRuby::Handler
 
-  on_intent("GetWhoIs") do
+  on_intent("StartTheGame") do
     slots = request.intent.slots
-    message = "I'm Daragh's MeBot"
+    message = "Alright, let's play The Studio Detective.
+      One sunny day, you put his/her lunchbox in the fridgerator. You worked hard, hard and so hard until noon, looking forward to having lunch. 
+      It’s finally the lunch break. You opened the fridge and looked for the lunchbox. But instead of the lunchbox, you could only see a note inside the fridge."
+    media = "https://www.ndtv.com/news/2_BIcBdVI.jpg"
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
-    logger.info 'GetWhoIs processed'
+    logger.info 'StartTheGame processed'
   end
 
-  on_intent("GetWhatIs") do
+  on_intent("MoveThePlace") do
     slots = request.intent.slots
     message = "I'm a bot that'll let you ask things about Daragh without bothering him."
     response.set_output_speech_text( message )
