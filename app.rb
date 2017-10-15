@@ -27,7 +27,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("StartTheGame") do
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
-      It was a typical sunny day, #{Username} put his/her lunchbox in the fridgerator. You worked hard,
+      It was a typical sunny day, #{ENV["USERNAME"]} put his/her lunchbox in the fridgerator. You worked hard,
       hard and so hard until noon, looking forward to having lunch. It’s finally the lunch break.
       You opened the fridge and looked for the lunchbox. But instead of the lunchbox,
       you could only see a note inside the fridge."
@@ -37,8 +37,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
     @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
     @client.api.account.messages.create(
       from: ENV["TWILIO_FROM"],
-      to: "+1"
-      body: "Look at this!!!!"
+      to: ENV["USER_PHONE"],
+      body: "Look at this!!!!",
       media_url: media
     )
 
@@ -70,7 +70,16 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots("Studio")
     message = "At the entrance of the studio, you found another note."
     media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
-    message = "There are two people, Meric and Kenz are talking to each other. You can talk with them, investigate the studio
+
+    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+    @client.api.account.messages.create(
+      from: ENV["TWILIO_FROM"],
+      to: ENV["USER_PHONE"],
+      body: "Look at this!!!!",
+      media_url: media
+    )
+
+    message += "There are two people, Meric and Kenz are talking to each other. You can talk with them, investigate the studio
      or go somewhere else."
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
@@ -83,8 +92,17 @@ class CustomHandler < AlexaSkillsRuby::Handler
     message = "When you went inside the classroom, you found that your lunch bag was dropped on the floor.
     You grabbed it and see inside, but there was only a chocolate bar wrap folded. Alas, you couldn’t save your
     chocolate bar, but you still might be able to save your sandwich…?"
-    message = "You saw the message from Daragh’s TA in the white board."
+    message += "You saw the message from Daragh’s TA in the white board."
     media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
+
+    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+    @client.api.account.messages.create(
+      from: ENV["TWILIO_FROM"],
+      to: ENV["USER_PHONE"],
+      body: "Look at this!!!!",
+      media_url: media
+    )
+
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
     logger.info 'MoveThePlace processed'
@@ -95,6 +113,15 @@ class CustomHandler < AlexaSkillsRuby::Handler
     message = "“I went shopping with {name} and just came back. What are you up to?"
     message = "You saw the message from Daragh’s TA in the white board."
     media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
+
+    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+    @client.api.account.messages.create(
+      from: ENV["TWILIO_FROM"],
+      to: ENV["USER_PHONE"],
+      body: "Look at this!!!!",
+      media_url: media
+    )
+
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
     logger.info 'MoveThePlace processed'
