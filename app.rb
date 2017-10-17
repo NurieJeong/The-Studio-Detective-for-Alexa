@@ -176,7 +176,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
       elsif slots["alibi_time"]
         message = "Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
-      elsif slots["mackenzie_clue"] == "phone number" or "four one two zero"
+      elsif slots["mackenzie_clue"] == "phone number" or slots["mackenzie_clue"] == "four one two zero"
         message = "Oh, four one two zero is Vikas's phone number."
       else
         message = "Sorry I didn't get it. What was that?"
@@ -254,25 +254,25 @@ class CustomHandler < AlexaSkillsRuby::Handler
     logger.info 'CallTheSuspect processed'
 
   end
-
-def run
-  begin
-    if timeout::timeout(5) do
-
-      media += "http://i.dailymail.co.uk/i/pix/2014/08/24/article-2732898-20BE9E6A00000578-145_634x483.jpg"
-      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-      @client.api.account.messages.create(
-        from: ENV["TWILIO_FROM"],
-        to: ENV["USER_PHONE"],
-        body: "Time is ticking 😈",
-        media_url: media
-      )
-    end
-
-  elsif timeout::timeout(10) do
-    message = "Oh no, time is up. You lost your lunchbox forever…If you want to retry the game, say replay."
-  end
-  end
+end
+# def run
+#   begin
+#     if timeout::timeout(5) do
+#
+#       media += "http://i.dailymail.co.uk/i/pix/2014/08/24/article-2732898-20BE9E6A00000578-145_634x483.jpg"
+#       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+#       @client.api.account.messages.create(
+#         from: ENV["TWILIO_FROM"],
+#         to: ENV["USER_PHONE"],
+#         body: "Time is ticking 😈",
+#         media_url: media
+#       )
+#     end
+#
+#   elsif timeout::timeout(10) do
+#     message = "Oh no, time is up. You lost your lunchbox forever…If you want to retry the game, say replay."
+#   end
+#   end
 # ----------------------------------------------------------------------
 #     ROUTES, END POINTS AND ACTIONS
 # ----------------------------------------------------------------------
