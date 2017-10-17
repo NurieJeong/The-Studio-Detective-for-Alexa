@@ -4,6 +4,7 @@ require 'sinatra/reloader' if development?
 require 'alexa_skills_ruby'
 require 'httparty'
 require 'iso8601'
+require 'timeout'
 
 # ----------------------------------------------------------------------
 
@@ -27,8 +28,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("StartTheGame") do
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
-      It was a typical sunny day, #{ENV["USERNAME"]} put his/her lunchbox in the fridgerator. You worked hard,
-      hard and so hard until noon, looking forward to having lunch. It’s finally the lunch break.
+      It was a typical sunny day, #{ENV["USERNAME"]} put her lunchbox in the fridgerator. #{ENV["USERNAME"]} worked hard,
+      hard and so hard until noon, looking forward to having lunch.  It’s finally the lunch break.
       You opened the fridge and looked for the lunchbox. But instead of the lunchbox,
       you could only see a note inside the fridge."
 
@@ -38,11 +39,11 @@ class CustomHandler < AlexaSkillsRuby::Handler
     @client.api.account.messages.create(
       from: ENV["TWILIO_FROM"],
       to: ENV["USER_PHONE"],
-      body: "Look at this!!!!",
+      body: "A message from the lunchbox thief",
       media_url: media
     )
 
-    message += "It must be the note from the lunch box thief! #{Username} thought.
+    message += "It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
       From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
       the studio and the classroom."
     response.set_output_speech_text( message )
@@ -54,81 +55,223 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
 
     if slots["investigation_place"] == "Kitchen"
-      message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him, investigate the kitchen further or go somewhere else."
+      message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him,
+      investigate the kitchen further or move to another place."
     elsif slots["investigation_place"] == "Studio"
-      message = "He's in the Studio"
+      message = "At the entrance of the studio, you found another note."
+      media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
+
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "The first clue",
+        media_url: media
+      )
+      message += "There are two people, Meric and Kenz are talking to each other. You can talk with them, investigate the studio or move to another place."
     elsif slots["investigation_place"] == "Classroom"
-      message = "He's in the classroom"
+      message = "You saw the message from Daragh’s TA in the white board."
+      media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
+
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "A message from Daragh",
+        media_url: media
+      )
     end
-    response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
-    logger.info 'MoveThePlace processed'
-  end
-
-
-  on_intent("MoveThePlace") do
-    slots = request.intent.slots("Studio")
-    message = "At the entrance of the studio, you found another note."
-    media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
-
-    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-    @client.api.account.messages.create(
-      from: ENV["TWILIO_FROM"],
-      to: ENV["USER_PHONE"],
-      body: "Look at this!!!!",
-      media_url: media
-    )
-
-    message += "There are two people, Meric and Kenz are talking to each other. You can talk with them, investigate the studio
-     or go somewhere else."
-    response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
-    logger.info 'MoveThePlace processed'
-  end
-
-
-  on_intent("MoveThePlace") do
-    slots = request.intent.slots("The Classroom")
-    message = "When you went inside the classroom, you found that your lunch bag was dropped on the floor.
-    You grabbed it and see inside, but there was only a chocolate bar wrap folded. Alas, you couldn’t save your
-    chocolate bar, but you still might be able to save your sandwich…?"
-    message += "You saw the message from Daragh’s TA in the white board."
-    media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
-
-    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-    @client.api.account.messages.create(
-      from: ENV["TWILIO_FROM"],
-      to: ENV["USER_PHONE"],
-      body: "Look at this!!!!",
-      media_url: media
-    )
 
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
     logger.info 'MoveThePlace processed'
   end
 
-  on_intent("TalkToSuspect") do
+    on_intent("TalkToSuspect") do
+      slots = request.intent.slots
+        if slots["investigation_place"] == "Vikas"
+          message = "Yo unni, you seem a bit anxious. What are you up to?"
+        elsif slots["investigation_place"] == "Meric"
+          message = "Yo what's up? said Meric, What do you want from me?"
+        elsif slots["investigation_place"] == "Mackenzie"
+          message = "Hey #{ENV["USERNAME"]} what's wrong? You look pretty angry."
+        end
+      response.set_output_speech_text( message )
+      response.set_simple_card("MeBot", message )
+      logger.info 'TalkToSuspect processed'
+    end
+
+
+  on_intent("Vikas_GetTheClue") do
     slots = request.intent.slots
-    message = "“I went shopping with {name} and just came back. What are you up to?"
-    message = "You saw the message from Daragh’s TA in the white board."
-    media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
 
-    @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-    @client.api.account.messages.create(
-      from: ENV["TWILIO_FROM"],
-      to: ENV["USER_PHONE"],
-      body: "Look at this!!!!",
-      media_url: media
-    )
+      if slots["vikas_clue"] == "Vikas"
+        message = "What are you up to unni?"
+      elsif slots["vikas_clue"] == "Handwriting"
+        message = "My handwriting? Dunno why you ask me about it. Is there something happened to you?"
+        media = "https://c5.staticflickr.com/9/8703/28188463060_2e37d1cc30.jpg"
 
+        @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+        @client.api.account.messages.create(
+          from: ENV["TWILIO_FROM"],
+          to: ENV["USER_PHONE"],
+          body: "A note of Vikas",
+          media_url: media
+        )
+      elsif slots["vikas_clue"] == "Memo"
+        message = "Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
+      elsif slots["vikas_clue"] == "Phone"
+        message = "Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
+      elsif slots["vikas_clue"] == "Lunch"
+        message = "I will have a nice frozen chicken tikka masala. It's the taste from home. Mmmmmm"
+      elsif slots["vikas_clue"] == "Meric"
+        message = "He's in the studio"
+      elsif slots["vikas_clue"] == "Daragh"
+        message = "I haven't seen Daragh today. I don't know where he is."
+      elsif slots["alibi_time"]
+        message = "I went to the grocery with Ahmed this morning."
+      else
+        message = "I'm sorry dude, I don't get it. What do you want to know?"
+      end
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
-    logger.info 'MoveThePlace processed'
+    logger.info 'Vikas_GetTheClue processed'
   end
 
-end
 
+  on_intent("Meric_GetTheClue") do
+    slots = request.intent.slots
+      if slots["meric_clue"] == "Meric"
+        message = "Yes?"
+      elsif slots["meric_clue"] == "Memo"
+        message = "Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
+      elsif slots["meric_clue"] == "Lunch"
+        message = "Ah I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
+      elsif slots["meric_clue"] == "Project"
+        message = "I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
+      elsif slots["meric_clue"] == "Mackenzie"
+        message = "You better speak to her. I saw that she was looking inside the fridge this morning."
+      elsif slots["alibi_time"]
+        message = "I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
+      else
+        message = "Sorry I didn't get it. What was that?"
+      end
+    response.set_output_speech_text( message )
+    response.set_simple_card("MeBot", message )
+    logger.info 'Meric_GetTheClue processed'
+  end
+
+
+  on_intent("Mackenzie_GetTheClue") do
+    slots = request.intent.slots
+      if slots["mackenzie_clue"] == "Mackenzie"
+        message = "Why?"
+      elsif slots["mackenzie_clue"] == "Memo"
+        message = "Oh wait, was that memo about your sandwich? Dang, who is that douchebag? But I didn't see anyone today."
+      elsif slots["mackenzie_clue"] == "Lunch"
+        message = "Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
+      elsif slots["mackenzie_clue"] == "Project"
+        message = "Yeah I'm having a trouble because Daragh is out of town."
+      elsif slots["mackenzie_clue"] == "Daragh"
+        message = "Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
+      elsif slots["alibi_time"]
+        message = "Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
+      elsif slots["mackenzie_clue"] == "phone number" or "four one two zero"
+        message = "Oh, four one two zero is Vikas's phone number."
+      else
+        message = "Sorry I didn't get it. What was that?"
+      end
+    response.set_output_speech_text( message )
+    response.set_simple_card("MeBot", message )
+    logger.info 'Mackenzie_GetTheClue processed'
+  end
+
+
+  on_intent("CallTheSuspect") do
+    slots = request.intent.slots
+    message += "I'm sorry, but the person you called is not available. The phone is off now."
+
+  response.set_output_speech_text( message )
+  response.set_simple_card("MeBot", message )
+  logger.info 'CallTheSuspect processed'
+
+  end
+
+  on_intent("GuessTheSuspect") do
+    message = "That's great! Tell me the name of the suspect and why."
+  response.set_output_speech_text( message )
+  response.set_simple_card("MeBot", message )
+  logger.info 'CallTheSuspect processed'
+
+  end
+
+  on_intent("FinalDecision") do
+    if slots["suspect_name"] == "Meric"
+      message = "At last, you came to Meric and said “Dude, open your backpack.” Meric was hesitated, refusing to open it.
+      You took his bag from him and opened it. As expected, there is your lunchbag in there."
+      media = "http://images2.onionstatic.com/onion/5665/6/original/800.jpg"
+
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "Got back your sandwich",
+        media_url: media
+      )
+      message += "Congrats #{ENV["USERNAME"]}, You found a thief and also saved your turkey and swiss sandwich. Great job! If you want to play the game again, say replay"
+    else
+      media = "https://media.giphy.com/media/xT1XGWbE0XiBDX2T8Q/giphy.gif"
+
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "Wrong guess",
+        media_url: media
+      )
+      message += "Poor baby, you got the wrong suspect. You lost your sandwich and also your friend. When you came back to the fridge, you saw the new message from the thief."
+      media += "https://metrouk2.files.wordpress.com/2014/08/college12.png"
+
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "Game Over",
+        media_url: media
+      )
+      message += "Sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
+  response.set_output_speech_text( message )
+  response.set_simple_card("MeBot", message )
+  logger.info 'FinalDecision processed'
+
+  end
+
+  on_intent("ReplayTheGame") do
+    message = "Super! Tell me the name of the suspect and why."
+  response.set_output_speech_text( message )
+  response.set_simple_card("MeBot", message )
+  logger.info 'CallTheSuspect processed'
+
+  end
+
+def run
+  begin
+    if timeout::timeout(5) do
+
+      media += "http://i.dailymail.co.uk/i/pix/2014/08/24/article-2732898-20BE9E6A00000578-145_634x483.jpg"
+      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+      @client.api.account.messages.create(
+        from: ENV["TWILIO_FROM"],
+        to: ENV["USER_PHONE"],
+        body: "Time is ticking 😈",
+        media_url: media
+      )
+    end
+
+  elsif timeout::timeout(10) do
+    message = "Oh no, time is up. You lost your lunchbox forever…If you want to retry the game, say replay."
+  end
+  end
 # ----------------------------------------------------------------------
 #     ROUTES, END POINTS AND ACTIONS
 # ----------------------------------------------------------------------
