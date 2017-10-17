@@ -205,7 +205,6 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("CallTheSuspect") do
-    slots = request.intent.slots
     message = "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
 
   response.set_output_speech_text( message )
