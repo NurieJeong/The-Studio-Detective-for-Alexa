@@ -202,7 +202,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       elsif slots["alibi_time"]
         message = "I took a yoga class this morning and when I came back, my sandwich was already gone!"
       else
-        message = "Sorry I didn't get it. What was that?"
+        message = "Sorry #{ENV["USERNAME"]}, I don't know about it."
       end
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
