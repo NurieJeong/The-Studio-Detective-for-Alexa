@@ -50,7 +50,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     message += "From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
       the studio and the classroom."
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Narrator", message )
     logger.info 'StartTheGame processed'
   end
 
@@ -86,7 +86,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     end
 
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Narrator", message )
     logger.info 'MoveThePlace processed'
   end
 
@@ -102,7 +102,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
           message = "#{slots["suspect_name"]} doesn't seem to want to talk right now. "
         end
       response.set_output_speech_text( message )
-      response.set_simple_card("MeBot", message )
+      response.set_simple_card("Detective", message )
       logger.info 'TalkToSuspect processed'
     end
 
@@ -139,7 +139,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "I'm sorry dude, I don't get it. What do you want to know?"
       end
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Vikas", message )
     logger.info 'Vikas_GetTheClue processed'
   end
 
@@ -162,7 +162,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Meric", message )
     logger.info 'Meric_GetTheClue processed'
   end
 
@@ -187,7 +187,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Mackenzie", message )
     logger.info 'Mackenzie_GetTheClue processed'
   end
 
@@ -205,7 +205,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Sorry #{ENV["USERNAME"]}, I don't know about it."
       end
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Manya", message )
     logger.info 'Mackenzie_GetTheClue processed'
   end
 
@@ -214,7 +214,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     message += "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
 
   response.set_output_speech_text( message )
-  response.set_simple_card("MeBot", message )
+  response.set_simple_card("Phone Message", message )
   logger.info 'CallTheSuspect processed'
 
   end
@@ -222,7 +222,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("GuessTheSuspect") do
     message = "That's great! Tell me the name of the suspect and why."
   response.set_output_speech_text( message )
-  response.set_simple_card("MeBot", message )
+  response.set_simple_card("Narrator", message )
   logger.info 'CallTheSuspect processed'
 
   end
@@ -264,7 +264,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       message += "Sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
     end
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Narrator", message )
     logger.info 'FinalDecision processed'
 
   end
@@ -272,7 +272,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("ReplayTheGame") do
     message = "Super! Tell me the name of the suspect and why."
     response.set_output_speech_text( message )
-    response.set_simple_card("MeBot", message )
+    response.set_simple_card("Narrator", message )
     logger.info 'CallTheSuspect processed'
 
   end
