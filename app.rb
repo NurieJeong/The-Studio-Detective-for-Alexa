@@ -102,7 +102,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
           message = "#{slots["suspect_name"]} doesn't seem to want to talk right now. "
         end
       response.set_output_speech_text( message )
-      response.set_simple_card("Detective", message )
+      response.set_simple_card("Narrator", message )
       logger.info 'TalkToSuspect processed'
     end
 
