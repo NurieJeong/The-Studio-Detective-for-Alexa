@@ -58,8 +58,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
 
     if slots["investigation_place"].include? "kitchen"
-      message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him,
-      investigate the kitchen further or move to another place."
+      message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him or move to another place."
     elsif slots["investigation_place"].include? "studio"
       message = "At the entrance of the studio, you found another note."
       media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
