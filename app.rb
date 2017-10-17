@@ -111,10 +111,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Vikas_GetTheClue") do
     slots = request.intent.slots
 
-      if slots["vikas_clue"] == "vikas"
-        message = "What are you up to unni?"
-      elsif slots["vikas_clue"] == "Handwriting"
-        message = "My handwriting? Dunno why you ask me about it. Is there something happened to you?"
+      if slots["vikas_clue"] == "Handwriting"
+        message = "Vikas said. My handwriting? Dunno why you ask me about it. Is there something happened to you?"
         media = "https://c5.staticflickr.com/9/8703/28188463060_2e37d1cc30.jpg"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -125,19 +123,19 @@ class CustomHandler < AlexaSkillsRuby::Handler
           media_url: media
         )
       elsif slots["vikas_clue"] == "memo"
-        message = "Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
+        message = "Vikas answered. Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
       elsif slots["vikas_clue"] == "phone"
-        message = "Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
+        message = "Vikas said. Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
       elsif slots["vikas_clue"] == "lunch"
-        message = "I will have a nice frozen chicken tikka masala. It's the taste from home. Mmmmmm"
+        message = "Vikas replied. I will have a nice frozen chicken tikka masala. It's the taste from home. Mmmmmm"
       elsif slots["vikas_clue"] == "meric"
-        message = "He's in the studio"
+        message = "Vikas said. He's in the studio"
       elsif slots["vikas_clue"] == "daragh"
-        message = "I haven't seen Daragh today. I don't know where he is."
+        message = "Vikas said. I haven't seen Daragh today. I don't know where he is."
       elsif slots["alibi_time"]
-        message = "I went to the grocery with Ahmed this morning."
+        message = "Vikas said. I went to the grocery with Ahmed this morning."
       else
-        message = "I'm sorry dude, I don't get it. What do you want to know?"
+        message = "Vikas is puzzled and saying. I'm sorry dude, I don't get it. What do you want to know?"
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Vikas", message )
@@ -147,20 +145,18 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("Meric_GetTheClue") do
     slots = request.intent.slots
-      if slots["meric_clue"] == "meric"
-        message = "Yes?"
-      elsif slots["meric_clue"] == "memo"
-        message = "Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
+      if slots["meric_clue"] == "memo"
+        message = "Meric answered. Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
       elsif slots["meric_clue"] == "lunch"
-        message = "Ah I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
+        message = "Meric said. Ah I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
       elsif slots["meric_clue"] == "project"
-        message = "I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
+        message = "Meric said. I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
       elsif slots["meric_clue"] == "mackenzie"
-        message = "You better speak to her. I saw that she was looking inside the fridge this morning."
+        message = "Meric told. You better speak to her. I saw that she was looking inside the fridge this morning."
       elsif slots["alibi_time"]
-        message = "I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
+        message = "Meric replied. I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
       else
-        message = "Sorry I didn't get it. What was that?"
+        message = "Meric said. Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Meric", message )
@@ -170,22 +166,20 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("Mackenzie_GetTheClue") do
     slots = request.intent.slots
-      if slots["mackenzie_clue"].include? "mackenzie"
-        message = "Why?"
-      elsif slots["mackenzie_clue"].include? "memo"
-        message = "Oh wait, was that memo about your sandwich? Dang, who is that douchebag? But I didn't see anyone today."
+      if slots["mackenzie_clue"].include? "memo"
+        message = "Mackenzie said. Oh wait, was that memo about your sandwich? Dang, who is that douchebag? But I didn't see anyone today."
       elsif slots["mackenzie_clue"].include? "lunch"
-        message = "Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
+        message = "Mackenzie answered. Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
       elsif slots["mackenzie_clue"].include? "project"
-        message = "Yeah I'm having a trouble because Daragh is out of town."
+        message = "Mackenzie said. Yeah I'm having a trouble because Daragh is out of town."
       elsif slots["mackenzie_clue"].include? "daragh"
-        message = "Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
+        message = "Mackenzie replied. Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
       elsif slots["alibi_time"]
-        message = "Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
+        message = "Mackenzie said. Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
       elsif slots["mackenzie_clue"].include? "phone number" or slots["mackenzie_clue"].include? "four one two zero"
-        message = "Oh, four one two zero is Vikas's phone number."
+        message = "Mackenzie said. Oh, I know that. four one two zero is Vikas's phone number."
       else
-        message = "Sorry I didn't get it. What was that?"
+        message = "Mackenzie said. Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Mackenzie", message )
