@@ -5,6 +5,7 @@ require 'alexa_skills_ruby'
 require 'httparty'
 require 'iso8601'
 require 'timeout'
+require 'twilio-ruby'
 
 # ----------------------------------------------------------------------
 
@@ -255,6 +256,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   end
 end
+
 # def run
 #   begin
 #     if timeout::timeout(5) do
