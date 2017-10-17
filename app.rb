@@ -240,17 +240,18 @@ class CustomHandler < AlexaSkillsRuby::Handler
         media_url: media
       )
       message += "Sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
-  response.set_output_speech_text( message )
-  response.set_simple_card("MeBot", message )
-  logger.info 'FinalDecision processed'
+    end
+    response.set_output_speech_text( message )
+    response.set_simple_card("MeBot", message )
+    logger.info 'FinalDecision processed'
 
   end
 
   on_intent("ReplayTheGame") do
     message = "Super! Tell me the name of the suspect and why."
-  response.set_output_speech_text( message )
-  response.set_simple_card("MeBot", message )
-  logger.info 'CallTheSuspect processed'
+    response.set_output_speech_text( message )
+    response.set_simple_card("MeBot", message )
+    logger.info 'CallTheSuspect processed'
 
   end
 
