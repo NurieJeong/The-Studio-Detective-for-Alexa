@@ -130,7 +130,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Vikas replied. I will have a nice frozen chicken tikka masala. It's the taste from home. Mmmmmm"
       elsif slots["vikas_clue"] == "meric"
         message = "Vikas said. He's in the studio"
-      elsif slots["vikas_clue"] == "daragh"
+      elsif slots["vikas_clue"] == "dara"
         message = "Vikas said. I haven't seen Daragh today. I don't know where he is."
       elsif slots["alibi_time"]
         message = "Vikas said. I went to the grocery with Ahmed this morning."
@@ -206,7 +206,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("CallTheSuspect") do
     slots = request.intent.slots
-    message += "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
+    message = "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
 
   response.set_output_speech_text( message )
   response.set_simple_card("Phone Message", message )
