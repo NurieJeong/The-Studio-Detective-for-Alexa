@@ -29,10 +29,11 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("StartTheGame") do
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
-      It was a typical sunny day, #{ENV["USERNAME"]} put her lunchbox in the fridgerator. #{ENV["USERNAME"]} worked hard,
-      hard and so hard until noon, looking forward to having lunch.  It’s finally the lunch break.
-      You opened the fridge and looked for the lunchbox. But instead of the lunchbox,
-      you could only see a note inside the fridge."
+      It was a typical sunny day. #{ENV["USERNAME"]} didn't have a class in the morning, so #{ENV["USERNAME"]} came late to the design studio.
+      When you entered the studio, #{ENV["USERNAME"]} heard a scream of Manya from the kitchen."
+    message += "Who the hell stole my sandwich? This is not funny! Manya said."
+    message += "#{ENV["USERNAME"]} ran to the kitchen and saw Manya. She looked very angry and pointed to the fridge.
+      On the door of the fridge, you could only see a note inside the fridge."
 
     media = "https://www.ndtv.com/news/2_BIcBdVI.jpg"
 
@@ -45,7 +46,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
     )
 
     message += "It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
-      From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
+      As a dear friend of her, #{ENV["USERNAME"]} decided to help. Don't worry Manya, I will help you get back your lunch."
+    message += "From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
       the studio and the classroom."
     response.set_output_speech_text( message )
     response.set_simple_card("MeBot", message )
@@ -90,12 +92,14 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
     on_intent("TalkToSuspect") do
       slots = request.intent.slots
-        if slots["investigation_place"] == "Vikas"
+        if slots["suspect_name"] == "Vikas"
           message = "Yo unni, you seem a bit anxious. What are you up to?"
-        elsif slots["investigation_place"] == "Meric"
+        elsif slots["suspect_name"] == "Meric"
           message = "Yo what's up? said Meric, What do you want from me?"
-        elsif slots["investigation_place"] == "Mackenzie"
+        elsif slots["suspect_name"] == "Mackenzie"
           message = "Hey #{ENV["USERNAME"]} what's wrong? You look pretty angry."
+        else
+          message = "#{slots["suspect_name"]} doesn't seem to want to talk right now. "
         end
       response.set_output_speech_text( message )
       response.set_simple_card("MeBot", message )
@@ -165,19 +169,19 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("Mackenzie_GetTheClue") do
     slots = request.intent.slots
-      if slots["mackenzie_clue"] == "Mackenzie"
+      if slots["mackenzie_clue"].include? "Mackenzie"
         message = "Why?"
-      elsif slots["mackenzie_clue"] == "Memo"
+      elsif slots["mackenzie_clue"].include? "Memo"
         message = "Oh wait, was that memo about your sandwich? Dang, who is that douchebag? But I didn't see anyone today."
-      elsif slots["mackenzie_clue"] == "Lunch"
+      elsif slots["mackenzie_clue"].include? "Lunch"
         message = "Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
-      elsif slots["mackenzie_clue"] == "Project"
+      elsif slots["mackenzie_clue"].include? "Project"
         message = "Yeah I'm having a trouble because Daragh is out of town."
-      elsif slots["mackenzie_clue"] == "Daragh"
+      elsif slots["mackenzie_clue"].include? "Daragh"
         message = "Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
       elsif slots["alibi_time"]
         message = "Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
-      elsif slots["mackenzie_clue"] == "phone number" or slots["mackenzie_clue"] == "four one two zero"
+      elsif slots["mackenzie_clue"].include? "phone number" or slots["mackenzie_clue"].include? "four one two zero"
         message = "Oh, four one two zero is Vikas's phone number."
       else
         message = "Sorry I didn't get it. What was that?"
@@ -190,7 +194,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("CallTheSuspect") do
     slots = request.intent.slots
-    message += "I'm sorry, but the person you called is not available. The phone is off now."
+    message += "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
 
   response.set_output_speech_text( message )
   response.set_simple_card("MeBot", message )
