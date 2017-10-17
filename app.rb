@@ -172,7 +172,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Mackenzie answered. Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
       elsif slots["mackenzie_clue"].include? "project"
         message = "Mackenzie said. Yeah I'm having a trouble because Daragh is out of town."
-      elsif slots["mackenzie_clue"].include? "daragh"
+      elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
       elsif slots["alibi_time"]
         message = "Mackenzie said. Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
