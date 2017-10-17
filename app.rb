@@ -55,10 +55,10 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("MoveThePlace") do
     slots = request.intent.slots
 
-    if slots["investigation_place"] == "Kitchen"
+    if slots["investigation_place"].include? "kitchen"
       message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him,
       investigate the kitchen further or move to another place."
-    elsif slots["investigation_place"] == "Studio"
+    elsif slots["investigation_place"].include? "studio"
       message = "At the entrance of the studio, you found another note."
       media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
 
@@ -70,7 +70,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         media_url: media
       )
       message += "There are two people, Meric and Kenz are talking to each other. You can talk with them, investigate the studio or move to another place."
-    elsif slots["investigation_place"] == "Classroom"
+    elsif slots["investigation_place"].include? "classroom"
       message = "You saw the message from Daragh’s TA in the white board."
       media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
 
