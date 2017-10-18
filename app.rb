@@ -19,6 +19,9 @@ end
 enable :sessions
 
 
+# setup time limit
+
+
 # ----------------------------------------------------------------------
 #     How you handle your Alexa
 # ----------------------------------------------------------------------
@@ -183,7 +186,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Mackenzie said, Oh my god, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything. I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
-        media = "https://www.dropbox.com/s/22zbbxjioyxj37f/Screen%20Shot%202017-10-18%20at%2011.07.35%20AM.png?dl=0"
+        media = "http://blogfiles.naver.net/MjAxNzEwMTlfMjEx/MDAxNTA4MzY4OTYxNzU2.QwSP-1wnG-kSFNWapL9B7qnOH216hj-q-B_rrx084oEg.mSg0m6lW2x3zY8S0upWtpKrs1SyobpXsnNf6w3H2_R4g.PNG.celenos/Screen_Shot_2017-10-18_at_11.07.35_AM.png"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
         @client.api.account.messages.create(
