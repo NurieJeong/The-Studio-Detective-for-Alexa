@@ -37,8 +37,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
       On the door of the fridge, #{ENV["USERNAME"]} could only see a note inside the fridge. It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
       As a dear friend of her, #{ENV["USERNAME"]} decided to help and said. Don't worry Manya, I will help you get back your lunch.
       From now on, you, as detective, should investigate the case within 10 minutes. You can either look around the kitchen, the studio and the classroom.
-      If you want to start invstigation, make sure to start speaking. Alexa tell the detective. For example, when you want to look around the kitchen,
-      say. Alexa, tell the detective let's go to the kitchen."
+      If you want to start invstigation, make sure to start speaking, Alexa, tell the detective. For example, when you want to look around the kitchen,
+      say. Alexa, tell the detective, let's go to the kitchen."
 
     media = "https://www.ndtv.com/news/2_BIcBdVI.jpg"
 
