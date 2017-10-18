@@ -57,11 +57,11 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
 
     if slots["investigation_place"].include? "kitchen"
-      message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him or move to another place.
-                By the way, when you talk to the suspects, make sure to speak their name first."
+      message = "There are two people, Vikas and Manya, are wondering around the kitchen. Vikas is heating his microwave lunch and Manya seems so pissed.
+                You can either talk with them or move to another place. By the way, when you talk to the suspects, make sure to speak their name first."
     elsif slots["investigation_place"].include? "studio"
       message = "At the entrance of the studio, you found a note.
-                There are two people, Meric and Mackenzie are talking to each other. You can talk with them, investigate the studio or move to another place."
+                There is one person, Meric, is working on something. You can chat with them, or move to another place."
       media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -73,7 +73,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
       )
 
     elsif slots["investigation_place"].include? "classroom"
-      message = "You saw the message from Dara’s TA in the white board."
+      message = "When you enter the classroom, you saw a message from Dara’s TA in the white board. You are not sure where Dara is right now.
+                In the classroom, there is Mackenzie watching Moana. You can chat with them, or move to another place."
       media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -83,6 +84,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "A message from Daragh",
         media_url: media
       )
+
     end
 
     response.set_output_speech_text( message )
@@ -101,7 +103,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         elsif slots["initiate_talk"] == "manya"
           message = "Hey, thanks so much for your help. What do you want to know?"
         else
-          message = "#{slots["suspect_name"]} doesn't seem to want to talk right now. "
+          message = "#{slots["initiate_talk"]} doesn't seem to want to talk right now. "
         end
       response.set_output_speech_text( message )
       response.set_simple_card("Narrator", message )
@@ -112,25 +114,24 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Vikas_GetTheClue") do
     slots = request.intent.slots
 
-      if slots["vikas_clue"] == "Handwriting"
-        message = "Vikas said. My handwriting? Dunno why you ask me about it. Is there something happened to you?"
-        media = "https://c5.staticflickr.com/9/8703/28188463060_2e37d1cc30.jpg"
+      if slots["vikas_clue"] == "memo"
+        message = "Vikas answered. Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
+      elsif slots["vikas_clue"] == "phone"
+        message = "Vikas said. Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
+      elsif slots["vikas_clue"] == "lunch"
+        message = "Vikas replied. I will have a nice frozen chicken tikka masala. Dude, this is so authentic. Taste from home. Mmmmmm"
+        media = "https://thismanskitchen.files.wordpress.com/2010/08/tikka.jpg"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
         @client.api.account.messages.create(
           from: ENV["TWILIO_FROM"],
           to: ENV["USER_PHONE"],
-          body: "A note of Vikas",
+          body: "A message from the lunchbox thief",
           media_url: media
         )
-      elsif slots["vikas_clue"] == "memo"
-        message = "Vikas answered. Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
-      elsif slots["vikas_clue"] == "phone"
-        message = "Vikas said. Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
-      elsif slots["vikas_clue"] == "lunch"
-        message = "Vikas replied. I will have a nice frozen chicken tikka masala. It's the taste from home. Mmmmmm"
+
       elsif slots["vikas_clue"] == "meric"
-        message = "Vikas said. He's in the studio"
+        message = "Vikas said. I think he's in the studio"
       elsif slots["vikas_clue"] == "dara"
         message = "Vikas said. I haven't seen Dara today. I don't know where he is."
       elsif slots["alibi_time"]
@@ -147,15 +148,18 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Meric_GetTheClue") do
     slots = request.intent.slots
       if slots["meric_clue"] == "memo"
-        message = "Meric answered, Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
+        message = "Meric answered, Oh yeah, I got the weird text from someone to put the memo next to the fridge. The phone number was four one two zero.
+        I have no idea who it was."
       elsif slots["meric_clue"] == "lunch"
         message = "Meric said, Ah, I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
       elsif slots["meric_clue"] == "project"
         message = "Meric said, I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
       elsif slots["meric_clue"] == "mackenzie"
-        message = "Meric told, You better speak to her. I saw that she was looking inside the fridge this morning."
+        message = "Meric told, You better speak to her. I saw that she was looking inside the fridge this morning. She's in the classroom right now."
       elsif slots["alibi_time"]
         message = "Meric replied, I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
+      elsif slots["meric_clue"] == "dara"
+        message = "Meric answered, Dara is in his office. I saw that he got a new pocket square. I wonder how many of them he has. Ha ha."
       else
         message = "Meric said, Sorry I didn't get it. What was that?"
       end
@@ -168,19 +172,40 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Mackenzie_GetTheClue") do
     slots = request.intent.slots
       if slots["mackenzie_clue"].include? "memo"
-        message = "Mackenzie said. Oh wait, was that memo about your sandwich? Dang, who is that douchebag? But I didn't see anyone today."
+        message = "Mackenzie said, Oh wait, was that memo about Manya's sandwich? Got dammit, who is that bastard?
+                  I went to the kitchen this morning but by the time when I got there, the thief was gone already. Sorry I can't help."
       elsif slots["mackenzie_clue"].include? "lunch"
-        message = "Mackenzie answered. Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
-      elsif slots["mackenzie_clue"].include? "project"
-        message = "Mackenzie said. Yeah I'm having a trouble because Dara is out of town."
+        message = "Mackenzie showed her lunch bag and said, I brought a turkey and cheddar sandwich. Trust me I'm not the thief!"
+        media = "http://3.bp.blogspot.com/-PAlvM0-BN-8/UG1ty6d3prI/AAAAAAAAWYY/E4BScYdCmIg/s1600/arbys_turkey_n_cheddar_02.JPG"
+
+        @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+        @client.api.account.messages.create(
+          from: ENV["TWILIO_FROM"],
+          to: ENV["USER_PHONE"],
+          body: "A message from the lunchbox thief",
+          media_url: media
+        )
+
+      elsif slots["mackenzie_clue"].include? "moana"
+        message = "Mackenzie said, OMG, this is the best Disney movie ever! Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
-        message = "Mackenzie replied. Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
+        message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
+        media = "https://photos.app.goo.gl/nzecLwy9iNFFwLU32"
+
+        @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+        @client.api.account.messages.create(
+          from: ENV["TWILIO_FROM"],
+          to: ENV["USER_PHONE"],
+          body: "A message from the lunchbox thief",
+          media_url: media
+        )
+
       elsif slots["alibi_time"]
-        message = "Mackenzie said. Meric and I was working on our virtual reality project. Urgh, I don't think I can make this happen in my lifetime!"
+        message = "Mackenzie said, I was grading my students' posters. Urgh, this is endless!"
       elsif slots["mackenzie_clue"].include? "phone number" or slots["mackenzie_clue"].include? "four one two zero"
-        message = "Mackenzie said. Oh, I know that. four one two zero is Vikas's phone number."
+        message = "Mackenzie said, Wait, I know that number. four one two zero is Vikas's phone number."
       else
-        message = "Mackenzie said. Sorry I didn't get it. What was that?"
+        message = "Mackenzie said, Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Mackenzie", message )
