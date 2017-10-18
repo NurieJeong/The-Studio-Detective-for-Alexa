@@ -241,7 +241,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("GuessTheSuspect") do
-    message = "That's great! Tell me the name of the suspect and why."
+    message = "That's great! Tell me the name of the suspect."
   response.set_output_speech_text( message )
   response.set_simple_card("Narrator", message )
   logger.info 'GuessTheSuspect processed'
