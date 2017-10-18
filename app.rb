@@ -156,7 +156,7 @@ end
       elsif slots["meric_clue"] == "lunch"
         message = "Meric said, Ah, I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
       elsif slots["meric_clue"] == "project"
-        message = "Meric said, I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
+        message = "Meric said, I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Cool cool cool."
       elsif slots["meric_clue"] == "mackenzie"
         message = "Meric told, You better speak to her. I saw that she was looking inside the fridge this morning. She's in the classroom right now."
       elsif slots["alibi_time"]
