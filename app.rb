@@ -250,9 +250,13 @@ end
   end
 
   on_intent("FinalDecision") do
-    if slots["final_call"].include? "Meric"
-      message = "At last, you came to Meric and said “Dude, open your backpack.” Meric was hesitated, refusing to open it.
-      You took his bag from him and opened it. As expected, there is your lunchbag in there."
+    if slots["final_call"].include? "Meric" && if slots["reason"]
+      message = "At last, you came to Meric and said “Dude, open your backpack.” Meric hesitated, refusing to open it.
+      You took his bag from him and opened it. As expected, there is your lunchbag in there.
+      Meric said, guys it's just a prank, but how did you know that it was me?
+      #{ENV["USERNAME"]} said, that was too easy, man! Because you are so bad at lying.
+      Congrats #{ENV["USERNAME"]}, You found a thief and also saved Manya's turkey swiss sandwich.
+      Great job! If you want to play the game again, say replay"
       media = "http://images2.onionstatic.com/onion/5665/6/original/800.jpg"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -262,7 +266,7 @@ end
         body: "Got back your sandwich",
         media_url: media
       )
-      message += "Congrats #{ENV["USERNAME"]}, You found a thief and also saved your turkey and swiss sandwich. Great job! If you want to play the game again, say replay"
+
     else
       media = "https://media.giphy.com/media/xT1XGWbE0XiBDX2T8Q/giphy.gif"
 
