@@ -74,7 +74,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
     elsif slots["investigation_place"].include? "classroom"
       message = "When you enter the classroom, you saw a message from Dara’s TA in the white board. You are not sure where Dara is right now.
-                In the classroom, there is Mackenzie watching Moana. You can chat with them, or move to another place."
+                In the classroom, there is Mackenzie watching Moana. You can talk to her, or move to another place."
       media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -95,13 +95,13 @@ class CustomHandler < AlexaSkillsRuby::Handler
     on_intent("TalkToSuspect") do
       slots = request.intent.slots
         if slots["initiate_talk"] == "vikas"
-          message = "Yo unni, what's up?"
+          message = "Vikas answered, yo unni, what's up?"
         elsif slots["initiate_talk"] == "meric"
-          message = "Yo what's up? said Meric, What do you want from me?"
+          message = "Meric answered, yo, what do you want from me?"
         elsif slots["initiate_talk"] == "mackenzie"
-          message = "Hey #{ENV["USERNAME"]} what are you up to?"
+          message = "Makenzie answered, hey #{ENV["USERNAME"]} what are you up to?"
         elsif slots["initiate_talk"] == "manya"
-          message = "Hey, thanks so much for your help. What do you want to know?"
+          message = "Manya answered, Hey, thanks so much for your help. What do you want to know?"
         else
           message = "#{slots["initiate_talk"]} doesn't seem to want to talk right now. "
         end
@@ -126,7 +126,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         @client.api.account.messages.create(
           from: ENV["TWILIO_FROM"],
           to: ENV["USER_PHONE"],
-          body: "A message from the lunchbox thief",
+          body: "Vikas's lunch",
           media_url: media
         )
 
@@ -173,7 +173,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
       if slots["mackenzie_clue"].include? "memo"
         message = "Mackenzie said, Oh wait, was that memo about Manya's sandwich? Got dammit, who is that bastard?
-                  I went to the kitchen this morning but by the time when I got there, the thief was gone already. Sorry I can't help."
+                  I went to the kitchen this morning, but by the time when I got there, the thief was gone already. Sorry I can't help."
       elsif slots["mackenzie_clue"].include? "lunch"
         message = "Mackenzie showed her lunch bag and said, I brought a turkey and cheddar sandwich. Trust me, I'm not the thief!"
         media = "http://3.bp.blogspot.com/-PAlvM0-BN-8/UG1ty6d3prI/AAAAAAAAWYY/E4BScYdCmIg/s1600/arbys_turkey_n_cheddar_02.JPG"
@@ -187,7 +187,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         )
 
       elsif slots["mackenzie_clue"].include? "moana"
-        message = "Mackenzie said, OMG, this is the best Disney movie ever! Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
+        message = "Mackenzie said, OMG, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
         media = "https://photos.app.goo.gl/nzecLwy9iNFFwLU32"
