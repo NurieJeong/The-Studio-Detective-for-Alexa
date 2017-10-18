@@ -26,7 +26,6 @@ enable :sessions
 
 class CustomHandler < AlexaSkillsRuby::Handler
 
-def playgame
   on_intent("StartTheGame") do
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
@@ -53,8 +52,6 @@ def playgame
     response.set_simple_card("Narrator", message )
     logger.info 'StartTheGame processed'
   end
-
-end
 
   on_intent("MoveThePlace") do
     slots = request.intent.slots
@@ -302,12 +299,6 @@ end
     response.set_simple_card("Narrator", message )
     logger.info 'CallTheSuspect processed'
 
-    if slot ["replay"].include? == "yes"
-      puts playgame
-    elsif slot ["replay"].include? == "no"
-      message = "Alright, let's continue the investigation."
-
-  end
 end
 
 # def run
