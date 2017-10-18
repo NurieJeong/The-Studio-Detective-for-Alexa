@@ -30,11 +30,13 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
       It was a typical sunny day. #{ENV["USERNAME"]} came late to the design studio, feeling something odd vibe.
-      When you entered the studio, #{ENV["USERNAME"]} heard a scream of Manya from the kitchen. Who the hell stole my sandwich? This is not funny! Manya said.
+      When entering the studio, #{ENV["USERNAME"]} heard a scream of Manya from the kitchen. Who the hell stole my sandwich? This is not funny! Manya said.
       #{ENV["USERNAME"]} ran into the kitchen and saw Manya. She looked very angry and pointed to the fridge.
-      On the door of the fridge, you could only see a note inside the fridge. It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
-      As a dear friend of her, #{ENV["USERNAME"]} decided to help. Don't worry Manya, I will help you get back your lunch.
-      From now on, you should investigate the case within 10 minutes. You can either look around the kitchen, the studio and the classroom."
+      On the door of the fridge, #{ENV["USERNAME"]} could only see a note inside the fridge. It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
+      As a dear friend of her, #{ENV["USERNAME"]} decided to help and said. Don't worry Manya, I will help you get back your lunch.
+      From now on, you, as detective, should investigate the case within 10 minutes. You can either look around the kitchen, the studio and the classroom.
+      If you want to start invstigation, make sure to start speaking. Alexa tell the detective. For example, when you want to look around the kitchen,
+      say. Alexa, tell the detective let's go to the kitchen."
 
     media = "https://www.ndtv.com/news/2_BIcBdVI.jpg"
 
@@ -58,7 +60,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
       message = "There is only one person, Vikas, is wondering around the kitchen. He is heating his microwave lunch. You can either talk with him or move to another place.
                 By the way, when you talk to the suspects, make sure to speak their name first."
     elsif slots["investigation_place"].include? "studio"
-      message = "At the entrance of the studio, you found another note."
+      message = "At the entrance of the studio, you found a note.
+                There are two people, Meric and Mackenzie are talking to each other. You can talk with them, investigate the studio or move to another place."
       media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -68,9 +71,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "The first clue",
         media_url: media
       )
-      message += "There are two people, Meric and Mackenzie are talking to each other. You can talk with them, investigate the studio or move to another place."
+
     elsif slots["investigation_place"].include? "classroom"
-      message = "You saw the message from Daragh’s TA in the white board."
+      message = "You saw the message from Dara’s TA in the white board."
       media = "https://pbs.twimg.com/media/C1voRuGXcAEGBkB.jpg"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
