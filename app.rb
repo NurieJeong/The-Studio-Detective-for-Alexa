@@ -190,7 +190,7 @@ end
         )
 
       elsif slots["mackenzie_clue"].include? "moana"
-        message = "Mackenzie said, OMG, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
+        message = "Mackenzie said, Oh my god, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
         media = "https://photos.app.goo.gl/nzecLwy9iNFFwLU32"
