@@ -30,10 +30,12 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
       It was a typical sunny day. #{ENV["USERNAME"]} came late to the design studio, feeling something odd vibe.
-      When you entered the studio, #{ENV["USERNAME"]} heard a scream of Manya from the kitchen."
-    message += "Who the hell stole my sandwich? This is not funny! Manya said."
-    message += "#{ENV["USERNAME"]} ran into the kitchen and saw Manya. She looked very angry and pointed to the fridge.
-      On the door of the fridge, you could only see a note inside the fridge."
+      When you entered the studio, #{ENV["USERNAME"]} heard a scream of Manya from the kitchen. Who the hell stole my sandwich? This is not funny! Manya said."
+      "#{ENV["USERNAME"]} ran into the kitchen and saw Manya. She looked very angry and pointed to the fridge.
+      On the door of the fridge, you could only see a note inside the fridge. It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
+        As a dear friend of her, #{ENV["USERNAME"]} decided to help. Don't worry Manya, I will help you get back your lunch.
+        From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
+        the studio and the classroom."
 
     media = "https://www.ndtv.com/news/2_BIcBdVI.jpg"
 
@@ -45,10 +47,6 @@ class CustomHandler < AlexaSkillsRuby::Handler
       media_url: media
     )
 
-    message += "It must be the note from the lunch box thief! #{ENV["USERNAME"]} thought.
-      As a dear friend of her, #{ENV["USERNAME"]} decided to help. Don't worry Manya, I will help you get back your lunch."
-    message += "From now on, you should investigate the case within 10 minutes. You can either look around the kitchen,
-      the studio and the classroom."
     response.set_output_speech_text( message )
     response.set_simple_card("Narrator", message )
     logger.info 'StartTheGame processed'
@@ -206,7 +204,6 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("CallTheSuspect") do
     message = "You called Vikas, but the only response you could here was, I'm sorry, but the person you called is not available. The phone is off now."
-
   response.set_output_speech_text( message )
   response.set_simple_card("Phone Message", message )
   logger.info 'CallTheSuspect processed'
@@ -217,7 +214,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     message = "That's great! Tell me the name of the suspect and why."
   response.set_output_speech_text( message )
   response.set_simple_card("Narrator", message )
-  logger.info 'CallTheSuspect processed'
+  logger.info 'GuessTheSuspect processed'
 
   end
 
