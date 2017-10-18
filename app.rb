@@ -249,7 +249,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("FinalDecision") do
-    if slots["final_call"].include? "Meric" and if slots["reason"]
+    if slots["final_call"].include? "Meric" and slots["reason"]
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric hesitated, refusing to open it.
       You took his bag from him and opened it. As expected, there is your lunchbag in there.
       Meric said, guys it's just a prank, but how did you know that it was me?
