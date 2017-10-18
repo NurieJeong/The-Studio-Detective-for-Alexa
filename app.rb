@@ -26,6 +26,7 @@ enable :sessions
 
 class CustomHandler < AlexaSkillsRuby::Handler
 
+def playgame
   on_intent("StartTheGame") do
     slots = request.intent.slots
     message = "Alright, let's play The Studio Detective.
@@ -52,6 +53,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
     response.set_simple_card("Narrator", message )
     logger.info 'StartTheGame processed'
   end
+
+end
 
   on_intent("MoveThePlace") do
     slots = request.intent.slots
@@ -247,7 +250,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("FinalDecision") do
-    if slots["final_call"] == "Meric"
+    if slots["final_call"].include? "Meric"
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric was hesitated, refusing to open it.
       You took his bag from him and opened it. As expected, there is your lunchbag in there."
       media = "http://images2.onionstatic.com/onion/5665/6/original/800.jpg"
@@ -289,10 +292,16 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("ReplayTheGame") do
-    message = "Super! Tell me the name of the suspect and why."
+    message = "Are you sure you want to start over again?"
+
     response.set_output_speech_text( message )
     response.set_simple_card("Narrator", message )
     logger.info 'CallTheSuspect processed'
+
+    if slot ["replay"].include? == "yes"
+      puts playgame
+    elsif slot ["replay"].include? == "no"
+      message = "Alright, let's continue the investigation."
 
   end
 end
