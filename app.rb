@@ -102,8 +102,6 @@ class CustomHandler < AlexaSkillsRuby::Handler
           message = "Makenzie answered, hey #{ENV["USERNAME"]} what are you up to?"
         elsif slots["initiate_talk"] == "manya"
           message = "Manya answered, Hey, thanks so much for your help. What do you want to know?"
-        else
-          message = "#{slots["initiate_talk"]} doesn't seem to want to talk right now. "
         end
       response.set_output_speech_text( message )
       response.set_simple_card("Narrator", message )
