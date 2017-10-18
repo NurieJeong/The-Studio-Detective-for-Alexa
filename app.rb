@@ -193,7 +193,7 @@ end
         message = "Mackenzie said, Oh my god, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
-        media = "https://photos.app.goo.gl/nzecLwy9iNFFwLU32"
+        media = "https://www.dropbox.com/s/22zbbxjioyxj37f/Screen%20Shot%202017-10-18%20at%2011.07.35%20AM.png?dl=0"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
         @client.api.account.messages.create(
