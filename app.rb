@@ -299,6 +299,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
     response.set_simple_card("Narrator", message )
     logger.info 'CallTheSuspect processed'
 
+    end
 end
 
 # def run
