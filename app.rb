@@ -57,19 +57,10 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
     if slots["investigation_place"].include? "kitchen"
       message = "There are two people, Vikas and Manya, are wondering around the kitchen. Vikas is heating his microwave lunch and Manya seems so pissed.
-                You can either talk with them or move to another place. By the way, when you talk to the suspects, make sure to speak their name first."
+                You can either talk with them or move to another place. By the way, when you talk to the suspects, make sure to speak their name first.
+                For example, try speaking, Alexa, tell the detective Vikas what did you do at eleven"
     elsif slots["investigation_place"].include? "studio"
-      message = "At the entrance of the studio, you found a note.
-                There is one person, Meric, is working on something. You can chat with them, or move to another place."
-      media = "https://i2.wp.com/www.thebibliophilegirluk.com/wp-content/uploads/img_2142.png?resize=600%2C576"
-
-      @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
-      @client.api.account.messages.create(
-        from: ENV["TWILIO_FROM"],
-        to: ENV["USER_PHONE"],
-        body: "The first clue",
-        media_url: media
-      )
+      message = "There is one person, Meric, is working on something. You can chat with them, or move to another place."
 
     elsif slots["investigation_place"].include? "classroom"
       message = "When you enter the classroom, you saw a message from Dara’s TA in the white board. You are not sure where Dara is right now.
@@ -117,11 +108,11 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
 
       if slots["vikas_clue"] == "memo"
-        message = "Vikas answered. Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
+        message = "Vikas answered, Oh, I saw Meric put a memo on the fridge door. Why don't you ask him? He's in the studio."
       elsif slots["vikas_clue"] == "phone"
-        message = "Vikas said. Yo, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
+        message = "Vikas said, Dude, my phone is dead now. I have lost my charger since yesterday so I can't answer it."
       elsif slots["vikas_clue"] == "lunch"
-        message = "Vikas replied. I will have a nice frozen chicken tikka masala. Dude, this is so authentic. Taste from home. Mmmmmm"
+        message = "Vikas replied, I will have a nice frozen chicken tikka masala. Dude, this is so authentic. Taste from home. Mmmmmm"
         media = "https://thismanskitchen.files.wordpress.com/2010/08/tikka.jpg"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -133,11 +124,11 @@ class CustomHandler < AlexaSkillsRuby::Handler
         )
 
       elsif slots["vikas_clue"] == "meric"
-        message = "Vikas said. I think he's in the studio"
+        message = "Vikas said, I think he's in the studio"
       elsif slots["vikas_clue"] == "dara"
-        message = "Vikas said. I haven't seen Dara today. I don't know where he is."
+        message = "Vikas said, I haven't seen Dara today. I don't know where he is."
       elsif slots["alibi_time"]
-        message = "Vikas said. I went to the grocery with Ahmed this morning."
+        message = "Vikas said, I went to the grocery with Ahmed this morning."
       else
         message = "Vikas is puzzled and saying. I'm sorry dude, I don't get it. What do you want to know?"
       end
@@ -189,7 +180,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         )
 
       elsif slots["mackenzie_clue"].include? "moana"
-        message = "Mackenzie said, Oh my god, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything because I'm stuck at my chatbot project and Dara is out of town."
+        message = "Mackenzie said, Oh my god, this is the best Disney movie ever! Oops, Sorry, I'm procrastinating everything. I'm stuck at my chatbot project and Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Hey, didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
         media = "https://www.dropbox.com/s/22zbbxjioyxj37f/Screen%20Shot%202017-10-18%20at%2011.07.35%20AM.png?dl=0"
