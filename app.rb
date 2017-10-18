@@ -92,13 +92,13 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
     on_intent("TalkToSuspect") do
       slots = request.intent.slots
-        if slots["suspect_name"] == "vikas"
+        if slots["initiate_talk"] == "vikas"
           message = "Yo unni, what's up?"
-        elsif slots["suspect_name"] == "meric"
+        elsif slots["initiate_talk"] == "meric"
           message = "Yo what's up? said Meric, What do you want from me?"
-        elsif slots["suspect_name"] == "mackenzie"
+        elsif slots["initiate_talk"] == "mackenzie"
           message = "Hey #{ENV["USERNAME"]} what are you up to?"
-        elsif slots["suspect_name"] == "manya"
+        elsif slots["initiate_talk"] == "manya"
           message = "Hey, thanks so much for your help. What do you want to know?"
         else
           message = "#{slots["suspect_name"]} doesn't seem to want to talk right now. "
@@ -132,7 +132,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       elsif slots["vikas_clue"] == "meric"
         message = "Vikas said. He's in the studio"
       elsif slots["vikas_clue"] == "dara"
-        message = "Vikas said. I haven't seen Daragh today. I don't know where he is."
+        message = "Vikas said. I haven't seen Dara today. I don't know where he is."
       elsif slots["alibi_time"]
         message = "Vikas said. I went to the grocery with Ahmed this morning."
       else
@@ -147,17 +147,17 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Meric_GetTheClue") do
     slots = request.intent.slots
       if slots["meric_clue"] == "memo"
-        message = "Meric answered. Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
+        message = "Meric answered, Oh yeah, I got the weird text from someone to put the memo next to the fridge? The phone number was four one two zero. I have no idea who it was."
       elsif slots["meric_clue"] == "lunch"
-        message = "Meric said. Ah I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
+        message = "Meric said, Ah, I had a nice tuna sandwich and chips. You can get it from Au Bon Pain."
       elsif slots["meric_clue"] == "project"
-        message = "Meric said. I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
+        message = "Meric said, I'm working on the chatbot that recommends lunch places near me. Today it suggested Au Bon Pain. Ha ha."
       elsif slots["meric_clue"] == "mackenzie"
-        message = "Meric told. You better speak to her. I saw that she was looking inside the fridge this morning."
+        message = "Meric told, You better speak to her. I saw that she was looking inside the fridge this morning."
       elsif slots["alibi_time"]
-        message = "Meric replied. I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
+        message = "Meric replied, I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
       else
-        message = "Meric said. Sorry I didn't get it. What was that?"
+        message = "Meric said, Sorry I didn't get it. What was that?"
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Meric", message )
@@ -172,7 +172,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       elsif slots["mackenzie_clue"].include? "lunch"
         message = "Mackenzie answered. Sorry to hear that you lost your sandwich. Hey, I can share my lunch with you. Hope you like turkey and cheddar sandwich."
       elsif slots["mackenzie_clue"].include? "project"
-        message = "Mackenzie said. Yeah I'm having a trouble because Daragh is out of town."
+        message = "Mackenzie said. Yeah I'm having a trouble because Dara is out of town."
       elsif slots["mackenzie_clue"].include? "dara"
         message = "Mackenzie replied. Didn't you see his message? He texted us this morning that he is stuck at the airport in Minneapolis because of the bad weather. Hope he comes back soon!"
       elsif slots["alibi_time"]
@@ -190,19 +190,19 @@ class CustomHandler < AlexaSkillsRuby::Handler
   on_intent("Manya_GetTheClue") do
     slots = request.intent.slots
       if slots["manya_clue"].include? "lunch"
-        message = "I brought a turkey swiss sandwich with rye bread. Argh, This sucks!!"
+        message = "Manya said, I brought a turkey swiss sandwich with rye bread. Argh, This sucks!!"
       elsif slots["manya_clue"].include? "memo"
-        message = "It must be someone in the class! Otherwise who would have known that I go to a yoga class this morning!"
+        message = "Manya shouted, It must be someone in the class! Otherwise who would have known that I go to a yoga class this morning!"
       elsif slots["manya_clue"].include? "yoga class" or slots["manya_clue"].include? "schedule"
-        message = "I think I told Vikas and Meric."
+        message = "Manya answered, I think I told Vikas and Meric."
       elsif slots["alibi_time"]
-        message = "I took a yoga class this morning and when I came back, my sandwich was already gone!"
+        message = "Manya replied, I took a yoga class this morning and when I came back, my sandwich was already gone!"
       else
-        message = "Sorry #{ENV["USERNAME"]}, I don't know about it."
+        message = "Manya said, Sorry #{ENV["USERNAME"]}, I don't know about it."
       end
     response.set_output_speech_text( message )
     response.set_simple_card("Manya", message )
-    logger.info 'Mackenzie_GetTheClue processed'
+    logger.info 'Manya_GetTheClue processed'
   end
 
   on_intent("CallTheSuspect") do
@@ -222,7 +222,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("FinalDecision") do
-    if slots["suspect_name"] == "Meric"
+    if slots["final_call"] == "Meric"
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric was hesitated, refusing to open it.
       You took his bag from him and opened it. As expected, there is your lunchbag in there."
       media = "http://images2.onionstatic.com/onion/5665/6/original/800.jpg"
