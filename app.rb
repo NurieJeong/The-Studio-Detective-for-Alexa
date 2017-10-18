@@ -4,7 +4,6 @@ require 'sinatra/reloader' if development?
 require 'alexa_skills_ruby'
 require 'httparty'
 require 'iso8601'
-require 'timeout'
 require 'twilio-ruby'
 
 # ----------------------------------------------------------------------
@@ -84,6 +83,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "A message from Daragh",
         media_url: media
       )
+
+    else
+      message = "Sorry, you can only investigate "
 
     end
 
@@ -299,7 +301,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
     response.set_simple_card("Narrator", message )
     logger.info 'CallTheSuspect processed'
 
-    end
+  end
+
 end
 
 # def run
