@@ -157,9 +157,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
       elsif slots["meric_clue"] == "mackenzie"
         message = "Meric told, You better speak to her. I saw that she was looking inside the fridge this morning. She's in the classroom right now."
       elsif slots["alibi_time"]
-        message = "Meric replied, I had a meeting with Daragh about my project this morning. It went too long so I almost missed my lunch time."
+        message = "Meric replied, I had a meeting with Dara about my project this morning. It went too long so I almost missed my lunch time."
       elsif slots["meric_clue"] == "dara"
-        message = "Meric answered, Dara is in his office. I saw that he got a new pocket square. I wonder how many of them he has. Ha ha."
+        message = "Meric answered, Dara is in his office. I saw that he got a new pocket square. I wonder how many he has. Ha ha."
       else
         message = "Meric said, Sorry I didn't get it. What was that?"
       end
@@ -175,7 +175,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         message = "Mackenzie said, Oh wait, was that memo about Manya's sandwich? Got dammit, who is that bastard?
                   I went to the kitchen this morning but by the time when I got there, the thief was gone already. Sorry I can't help."
       elsif slots["mackenzie_clue"].include? "lunch"
-        message = "Mackenzie showed her lunch bag and said, I brought a turkey and cheddar sandwich. Trust me I'm not the thief!"
+        message = "Mackenzie showed her lunch bag and said, I brought a turkey and cheddar sandwich. Trust me, I'm not the thief!"
         media = "http://3.bp.blogspot.com/-PAlvM0-BN-8/UG1ty6d3prI/AAAAAAAAWYY/E4BScYdCmIg/s1600/arbys_turkey_n_cheddar_02.JPG"
 
         @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -196,7 +196,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         @client.api.account.messages.create(
           from: ENV["TWILIO_FROM"],
           to: ENV["USER_PHONE"],
-          body: "A message from the lunchbox thief",
+          body: "Mackenzie's lunch",
           media_url: media
         )
 
