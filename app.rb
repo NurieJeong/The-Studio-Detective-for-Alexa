@@ -249,9 +249,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
     slots = request.intent.slots
     if slots["final_call"].downcase.strip == "meric"
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric hesitated, refusing to open it.
-      You took his bag from him and opened it. As expected, there is your lunchbag in there.
+      You took his bag from him and opened it. As expected, there is Manya's sandwich in there.
       Meric said, guys it's just a prank, but how did you know that it was me?
-      #{ENV["USERNAME"]} said, that was too easy, man! Because you are so bad at lying.
+      #{ENV["USERNAME"]} said, that was too easy, man! Because you are so bad at lying!
       Congrats #{ENV["USERNAME"]}, You found a thief and also saved Manya's turkey swiss sandwich.
       Great job! If you want to play the game again, say replay"
       media = "http://images2.onionstatic.com/onion/5665/6/original/800.jpg"
@@ -294,6 +294,15 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
   on_intent("ReplayTheGame") do
     message = "Are you sure you want to start over again?"
+
+    response.set_output_speech_text( message )
+    response.set_simple_card("Narrator", message )
+    logger.info 'CallTheSuspect processed'
+
+  end
+
+  on_intent("QuitTheGame") do
+    message = "Roger detective, see you soon!"
 
     response.set_output_speech_text( message )
     response.set_simple_card("Narrator", message )
