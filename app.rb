@@ -92,14 +92,14 @@ class CustomHandler < AlexaSkillsRuby::Handler
       slots = request.intent.slots
       puts "initiate_talk is "
       puts slots["initiate_talk"]
-      
-        if slots["initiate_talk"] == "vikas"
+
+        if slots["initiate_talk"].downcase.strip == "vikas"
           message = "Vikas answered, yo unni, what's up?"
-        elsif slots["initiate_talk"] == "meric"
+        elsif slots["initiate_talk"].downcase.strip == "meric"
           message = "Meric answered, yo, what do you want from me?"
-        elsif slots["initiate_talk"] == "mackenzie"
+        elsif slots["initiate_talk"].downcase.strip == "mackenzie"
           message = "Makenzie answered, hey #{ENV["USERNAME"]} what are you up to?"
-        elsif slots["initiate_talk"] == "manya"
+        elsif slots["initiate_talk"].downcase.strip == "manya"
           message = "Manya answered, Hey, thanks so much for your help. What do you want to know?"
         else
           message = "#{slots["initiate_talk"]} doesn't seem to want to talk right now. "
