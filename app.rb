@@ -260,7 +260,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       @client.api.account.messages.create(
         from: ENV["TWILIO_FROM"],
         to: ENV["USER_PHONE"],
-        body: "Got back your sandwich",
+        body: "Mission Complete! You saved Manya's sandwich 😆",
         media_url: media
       )
 
@@ -274,7 +274,8 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "Wrong guess",
         media_url: media
       )
-      message += "Poor baby, you got the wrong suspect. You lost your sandwich and also your friend. When you came back to the fridge, you saw the new message from the thief."
+      message += "Poor baby, you got the wrong suspect. You lost your sandwich and also your friend. When you came back to the fridge,
+      you saw the new message from the thief. I'm sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
       media += "https://metrouk2.files.wordpress.com/2014/08/college12.png"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
@@ -284,7 +285,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "Game Over",
         media_url: media
       )
-      message += "Sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
+
     end
     response.set_output_speech_text( message )
     response.set_simple_card("Narrator", message )
