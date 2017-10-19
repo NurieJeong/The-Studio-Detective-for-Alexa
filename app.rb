@@ -94,7 +94,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       puts slots["initiate_talk"]
 
         if slots["initiate_talk"].downcase.strip == "vikas"
-          message = "Vikas answered, yo unni, what's up?"
+          message = "Vikas answered, dude, what's up?"
         elsif slots["initiate_talk"].downcase.strip == "meric"
           message = "Meric answered, yo, what do you want from me?"
         elsif slots["initiate_talk"].downcase.strip == "mackenzie"
@@ -246,6 +246,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("FinalDecision") do
+    puts "final_call is "
+    puts slots["final_call"]
+
     if slots["final_call"].downcase.strip == "meric"
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric hesitated, refusing to open it.
       You took his bag from him and opened it. As expected, there is your lunchbag in there.
