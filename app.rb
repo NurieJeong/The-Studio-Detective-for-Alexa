@@ -90,6 +90,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
 
     on_intent("TalkToSuspect") do
       slots = request.intent.slots
+      puts "initiate_talk is "
+      puts slots["initiate_talk"]
+      
         if slots["initiate_talk"] == "vikas"
           message = "Vikas answered, yo unni, what's up?"
         elsif slots["initiate_talk"] == "meric"
