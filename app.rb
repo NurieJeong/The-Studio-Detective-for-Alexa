@@ -274,8 +274,9 @@ class CustomHandler < AlexaSkillsRuby::Handler
         body: "Wrong guess",
         media_url: media
       )
-      message = "Poor baby, you got the wrong suspect. You lost your sandwich and also your friend. When you came back to the fridge,
-      you saw the new message from the thief. I'm sorry #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
+      message = "When you came back to the fridge, you saw the new message from the thief.  
+      Shoot, you got the wrong suspect! Manya lost her sandwich and you lost your friend.
+      Alas #{ENV["USERNAME"]}, but this investigation ended up being a total failure. If you want to play the game again, say replay."
       media = "https://metrouk2.files.wordpress.com/2014/08/college12.png"
 
       @client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
