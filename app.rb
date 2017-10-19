@@ -246,9 +246,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
   end
 
   on_intent("FinalDecision") do
-    puts "final_call is "
-    puts slots["final_call"]
-
+    slots = request.intent.slots
     if slots["final_call"].downcase.strip == "meric"
       message = "At last, you came to Meric and said “Dude, open your backpack.” Meric hesitated, refusing to open it.
       You took his bag from him and opened it. As expected, there is your lunchbag in there.
