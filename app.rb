@@ -79,7 +79,7 @@ class CustomHandler < AlexaSkillsRuby::Handler
       )
 
     else
-      message = "Sorry, you can only investigate "
+      message = "Sorry, you can only investigate the kitchen, the studio or the classroom."
 
     end
 
